@@ -1,62 +1,50 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    </head>
-    <body>
-        <div id="html-content-holder" style="background-color: #F0F0F1; color: #00cc65; width: 500px;padding-left: 25px; padding-top: 10px;">
-            <strong>Giải pháp Toàn Vẹn</strong><hr/>
-            <h3 style="color: #3e4b51;">
-                Công ty TNHH Giải pháp Toàn Vẹn
-            </h3>
-            <h3 style="color: #3e4b51;">
-                Thạnh Phước - Giồng Riềng - Kiên Giang
-            </h3>
-            <p style="color: #3e4b51;">Hello html2canvas</p>
-        </div>
-        <input id="btn-Preview-Image" type="button" value="Preview"/>
-        <a id="btn-Convert-Html2Image" href="#">Download</a>
-        <br/>
-        <h3>Preview :</h3>
-        <div id="previewImage"></div>
-        <script>
-            $(document).ready(function(){
-            var element = $("#html-content-holder"); // global variable
-            var getCanvas; // global variable
-                $("#btn-Preview-Image").on('click', function () {
-                     html2canvas(element, {
-                     onrendered: function (canvas) {
-                            $("#previewImage").append(canvas);
-                            getCanvas = canvas;
-                         }
-                     });
-                });
-                $("#btn-Convert-Html2Image").on('click', function () {
-                var imgageData = getCanvas.toDataURL("image/png");
-                var newData = imgageData.replace(/^data:image\/png/, "data:application/octet-stream");
-                $("#btn-Convert-Html2Image").attr("download", "your_pic_name.png").attr("href", newData);
-                });
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Using an existing canvas to draw on</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+        button {
+            clear: both;
+            display: block;
+        }
+        #content {
+            background: rgba(100, 255, 255, 0.5);
+            padding: 50px 10px;
+        }
+    </style>
+</head>
+<body>
+<div><h1>HTML content to render:</h1>
+    <div id="content">Render the content in this element <strong>only</strong> onto the existing canvas element</div>
+</div>
+<h1>Existing canvas:</h1>
+<canvas width="500" height="200"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.js" integrity="sha512-sn/GHTj+FCxK5wam7k9w4gPPm6zss4Zwl/X9wgrvGMFbnedR8lTUSLdsolDRBRzsX6N+YgG6OWyvn9qaFVXH9w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<button>Run html2canvas</button>
+<script type="text/javascript">
+    var canvas = document.querySelector("canvas");
+    var ctx = canvas.getContext("2d");
 
-            });
-        </script>
-    </body>
+    ctx.beginPath();
+    ctx.arc(75,75,50,0,Math.PI*2,true); // Outer circle
+    ctx.moveTo(110,75);
+    ctx.arc(75,75,35,0,Math.PI,false);   // Mouth (clockwise)
+    ctx.moveTo(65,65);
+    ctx.arc(60,65,5,0,Math.PI*2,true);  // Left eye
+    ctx.moveTo(95,65);
+    ctx.arc(90,65,5,0,Math.PI*2,true);  // Right eye
+    ctx.stroke();
+
+    document.querySelector("button").addEventListener("click", function() {
+        html2canvas(document.querySelector("#content"), {canvas: canvas, scale: 1}).then(function(canvas) {
+            console.log('Drew on the existing canvas');
+        });
+    }, false);
+
+</script>
+</body>
 </html>
-
-
-
-<!--
-<html>
-    <head>
-        <title>Welcome to Your_domain!</title>
-        <meta charset="UTF-8">
-        <meta name="description" content="HTML Deeplink print demo">
-        <meta name="keywords" content="HTML, CSS, JavaScript">
-        <meta name="author" content="Tran Van Toan">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h1>Success!  The your_domain virtual host is working!</h1>
-        <a href="gptvprint://gptvprint.gptv.vn"> Hello, world! </a>
-    </body>
-</html>
--->
