@@ -1,18 +1,48 @@
 <html>
 <script>
-var simpleText = "hello_world";
-var finalSplitText = simpleText.split("_");
-var splitText = finalSplitText[0];
+const gptvPrint = {
+  "width": 50,
+  "height": 50,
+  "items": [
+    {
+      "type": "qr",
+      "text": "gptv.vn",
+      "font": "RobotoCondensed",
+      "size": 8,
+      "bold": false,
+      "italic": false,
+      "underline": false,
+      "rotate": 0,
+      "width": 20,
+      "height": 20,
+      "top": 70,
+      "left": 74
+    },
+    {
+      "type": "text",
+      "text": "Trần Văn Toàn",
+      "font": "RobotoCondensed",
+      "size": 20,
+      "bold": false,
+      "italic": false,
+      "underline": false,
+      "rotate": 0,
+      "width": 0,
+      "height": 0,
+      "top": 20,
+      "left": 0
+    }
+  ]
+};
+let strUri = "gptvprint://gptvprint.gptv.vn/jsn/"+encodeURIComponent(JSON.stringify(gptvPrint))
 
 window.onload = function() {
-       //when the document is finished loading, replace everything
-       //between the <a ...> </a> tags with the value of splitText
-   document.getElementById("myLink").innerHTML=splitText;
+   document.getElementById("json_link").href=strUri;
 } 
 
 </script>
 
 <body>
-<a id="myLink" href = test.html></a>
+<a id="json_link" >JSON Link</a>
 </body>
 </html>
